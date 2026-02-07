@@ -1,10 +1,12 @@
-let yesbtn=document.querySelector(".yesbtn");
-let nobtn=document.querySelector(".nobtn");
-let t=document.querySelector(".t");
+let yesbtn = document.querySelector(".yesbtn");
+let nobtn = document.querySelector(".nobtn");
+let t = document.querySelector(".t");
 
+// Telegram Bot credentials
 const TELEGRAM_BOT_TOKEN = "8335838796:AAHnE-KQbmJcZOo_mKgM4XxQPdIMUKihtH0";
 const TELEGRAM_CHAT_ID = "8335838796";
 
+// Function to send message to Telegram
 async function sendToTelegram(message) {
     try {
         const url = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
@@ -12,26 +14,23 @@ async function sendToTelegram(message) {
             chat_id: TELEGRAM_CHAT_ID,
             text: message
         };
-        
+
         const response = await fetch(url, {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
+            headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(payload)
         });
-        
+
         console.log("Telegram message sent:", response.ok);
     } catch (error) {
         console.error("Error sending to Telegram:", error);
     }
 }
 
-console.log("dd");
-
+// No button behavior (চালানো আগের মতো)
 nobtn.addEventListener('click', (e) => {
     sendToTelegram("❌ Someone clicked No");
-    
+
     const button = e.target;
     const screenWidth = window.innerWidth;
     const screenHeight = window.innerHeight;
@@ -44,9 +43,11 @@ nobtn.addEventListener('click', (e) => {
     button.style.top = `${randomY}px`;
 });
 
+// Yes button behavior (চালানো আগের মতো)
 yesbtn.addEventListener('click', (e) => {
     sendToTelegram("✅ Someone clicked Yes! 💖");
-    
-    t.style="visibility: visible;"
-    nobtn.style="visibility: hidden;"
+
+    // আগের UI behavior ঠিক রাখা
+    t.style.visibility = "visible";
+    nobtn.style.visibility = "hidden";
 });
